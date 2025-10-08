@@ -1,0 +1,17 @@
+=========================================
+Resumo de Serviços
+=========================================
+
+Top 10 serviços com mais logs:
+    211 queue
+    209 database
+    196 cache
+    193 api
+    191 auth
+
+Erros por serviço:
+     58 queue
+     54 database
+     53 cache
+     46 auth
+     38 api

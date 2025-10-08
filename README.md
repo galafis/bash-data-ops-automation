@@ -1,7 +1,10 @@
 # DataOps Automation with Bash
 
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Shell Script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![Datamash](https://img.shields.io/badge/Tool-Datamash-blue?style=for-the-badge&logo=gnu&logoColor=white)
+![AWK](https://img.shields.io/badge/AWK-Processing-green?style=for-the-badge)
+![Monitoring](https://img.shields.io/badge/Monitoring-Log%20Analysis-orange?style=for-the-badge)
 ![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid-orange?style=for-the-badge&logo=mermaid&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
@@ -18,6 +21,7 @@ O principal objetivo deste projeto é **fornecer um conjunto de scripts Bash bem
 ### ✨ Destaques
 
 - **Validação de Dados Robusta**: Implementação de funções de validação que verificam a integridade e o formato dos dados em diferentes estágios da pipeline, garantindo a qualidade dos dados antes do processamento.
+- **Análise Avançada de Logs**: Módulo `log_analyzer.sh` que demonstra análise profissional de logs com detecção de anomalias, análise de padrões temporais, estatísticas de tempos de resposta e geração de relatórios automatizados.
 - **Transformações de Dados Complexas**: Exemplos de como realizar transformações de dados sofisticadas usando ferramentas de linha de comando como `awk`, `sed`, `grep` e `datamash`, permitindo agregação, enriquecimento e reestruturação de dados.
 - **Sistema de Notificação de Status**: Integração de mecanismos de notificação (e.g., e-mail, logs detalhados) para alertar sobre o sucesso, falha ou anomalias na execução da pipeline, facilitando o monitoramento proativo.
 - **Automação de Pipelines**: Scripts para orquestrar o fluxo de dados, desde a ingestão até o processamento e carregamento, com tratamento de erros e logging detalhado.

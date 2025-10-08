@@ -1,0 +1,17 @@
+=========================================
+Resumo de Níveis de Log
+=========================================
+
+Total de linhas: 1000
+
+Distribuição por nível:
+    269 [INFO]
+    264 [WARNING]
+    249 [ERROR]
+    218 [DEBUG]
+
+Porcentagem por nível:
+  INFO: 269 (26.90%)
+  WARNING: 264 (26.40%)
+  ERROR: 249 (24.90%)
+  DEBUG: 218 (21.80%)
