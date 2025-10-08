@@ -28,13 +28,7 @@ O principal objetivo deste projeto é **fornecer um conjunto de scripts Bash bem
 - **Testes Incluídos**: Exemplos de como testar scripts Bash para garantir sua correção e robustez.
 - **Abordagem Didática**: Conteúdo apresentado de forma didática, ideal para aprendizado e referência, com explicações claras sobre os conceitos e a aplicação prática.
 
-### 📊 Visualização
 
-![DataOps Automation Workflow](images/bash_data_ops_automation.png)
-
-*Diagrama ilustrativo de um fluxo de trabalho de automação DataOps utilizando scripts Bash, destacando as etapas e interações.*
-
----
 
 ## 🇬🇧 DataOps Automation with Bash
 
