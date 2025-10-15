@@ -73,10 +73,137 @@ The main objective of this project is to **provide a set of well-documented Bash
 
 ### 📊 Visualization
 
-![Bash DataOps Flow](diagrams/bash_data_ops_flow.png)
+```mermaid
+graph TB
+    subgraph "Data Pipeline (data_pipeline.sh)"
+        A1[Start Pipeline] --> B1[Load Configuration]
+        B1 --> C1[Extract Data]
+        C1 --> D1[Validate Data]
+        D1 --> E1{Valid?}
+        E1 -->|Yes| F1[Transform & Enrich]
+        E1 -->|No| G1[Move to Error Dir]
+        F1 --> H1[Aggregate by Category & Date]
+        H1 --> I1[Load to Processed Dir]
+        I1 --> J1[Send Success Notification]
+        G1 --> K1[Send Error Notification]
+    end
+    
+    subgraph "Log Analyzer (log_analyzer.sh)"
+        A2[Start Analysis] --> B2[Generate/Load Logs]
+        B2 --> C2[Analyze Log Levels]
+        C2 --> D2[Analyze Services]
+        D2 --> E2[Analyze Response Times]
+        E2 --> F2[Detect Time Patterns]
+        F2 --> G2[Detect Anomalies]
+        G2 --> H2[Generate Summary Report]
+        H2 --> I2[Output to Analysis Dir]
+    end
+    
+    style A1 fill:#90EE90,stroke:#333,stroke-width:2px
+    style J1 fill:#90EE90,stroke:#333,stroke-width:2px
+    style K1 fill:#FFB6C1,stroke:#333,stroke-width:2px
+    style A2 fill:#87CEEB,stroke:#333,stroke-width:2px
+    style I2 fill:#87CEEB,stroke:#333,stroke-width:2px
+```
 
-*Diagrama ilustrativo do fluxo de automação de operações de dados em Bash, destacando as etapas e interações.*
+*Diagramas ilustrativos do fluxo de automação de operações de dados em Bash, destacando as etapas e interações. Para mais detalhes, veja [ARCHITECTURE.md](diagrams/ARCHITECTURE.md).*
 
+
+---
+
+## 📚 Scripts Disponíveis / Available Scripts
+
+### 1. data_pipeline.sh - Pipeline Completa de Dados
+
+Script de pipeline ETL completo com validação robusta, transformações complexas e tratamento de erros.
+
+**Funcionalidades:**
+- ✅ Extração de dados simulada (CSV)
+- ✅ Validação robusta com múltiplos critérios
+  - Validação de tipos de dados
+  - Validação de formato de data
+  - Validação de valores numéricos
+  - Validação de campos obrigatórios
+- ✅ Transformações de dados
+  - Enriquecimento com lookup tables
+  - Cálculos de métricas (total_amount)
+  - Agregações por categoria e data
+- ✅ Carregamento de dados processados
+- ✅ Logging detalhado com timestamps
+- ✅ Tratamento de erros com notificações
+- ✅ Configuração externa via arquivo
+- ✅ Separação de dados válidos e inválidos
+
+**Uso:**
+```bash
+# Criar estrutura de diretórios
+mkdir -p config data/{raw,staging,processed,lookup,errors} logs
+
+# Criar arquivo de configuração
+cat > config/pipeline_config.conf <<EOF
+SOURCE_DIR=./data/raw
+STAGING_DIR=./data/staging
+PROCESSED_DIR=./data/processed
+LOOKUP_DIR=./data/lookup
+ERROR_DIR=./data/errors
+LOG_FILE=./logs/data_pipeline.log
+NOTIFICATION_ENABLED=false
+EOF
+
+# Executar pipeline
+bash src/data_pipeline.sh
+```
+
+**Saída:**
+- `data/staging/valid_data_*.csv` - Dados validados
+- `data/errors/invalid_data_*.csv` - Dados com erros de validação
+- `data/staging/transformed_*.csv` - Dados agregados por categoria e data
+- `data/processed/final_*.csv` - Dados processados finais
+- `logs/data_pipeline.log` - Log completo da execução
+
+### 2. log_analyzer.sh - Analisador Avançado de Logs
+
+Ferramenta profissional de análise de logs com estatísticas avançadas e detecção de anomalias.
+
+**Funcionalidades:**
+- 📊 Análise de níveis de log (INFO, WARNING, ERROR, DEBUG)
+- 🔍 Análise de serviços/componentes
+- ⏱️ Estatísticas de tempos de resposta
+  - Média, mediana, mínimo, máximo
+  - Desvio padrão
+  - Distribuição por faixas de tempo
+- 📈 Padrões temporais (distribuição por hora)
+- 🚨 Detecção de anomalias baseada em thresholds
+- 📝 Geração de relatórios completos
+- 🎨 Output colorido para melhor visualização
+
+**Uso:**
+```bash
+# Executar com logs de exemplo
+bash src/log_analyzer.sh
+
+# Executar com logs personalizados
+export LOG_DIR=./meus_logs
+export OUTPUT_DIR=./minhas_analises
+bash src/log_analyzer.sh
+```
+
+**Saída:**
+- `analysis/log_levels_summary.txt` - Resumo de níveis de log
+- `analysis/services_summary.txt` - Resumo de serviços
+- `analysis/response_times_summary.txt` - Estatísticas de tempos de resposta
+- `analysis/time_patterns_summary.txt` - Padrões temporais
+- `analysis/anomalies_report.txt` - Relatório de anomalias
+- `analysis/summary_report.txt` - Relatório resumido geral
+
+**Configuração:**
+```bash
+# Variáveis de ambiente opcionais
+export LOG_DIR="./logs"                    # Diretório de logs
+export OUTPUT_DIR="./analysis"             # Diretório de saída
+export ALERT_THRESHOLD_ERROR=10            # Threshold de erros
+export ALERT_THRESHOLD_WARNING=50          # Threshold de warnings
+```
 
 ---
 
@@ -443,7 +570,16 @@ Log Analyzer - Advanced Log Analysis
 
 ## 🤝 Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, enviar pull requests ou sugerir melhorias. Por favor, siga as diretrizes de contribuição.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, enviar pull requests ou sugerir melhorias.
+
+Para contribuir:
+1. Fork o repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'feat: adiciona MinhaFeature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
+
+Por favor, leia o [CONTRIBUTING.md](CONTRIBUTING.md) para mais detalhes sobre nosso código de conduta e o processo de submissão de pull requests.
 
 ---
 
