@@ -60,7 +60,7 @@ generate_sample_logs() {
     
     log_info "Gerando $num_lines linhas de logs de exemplo..."
     
-    > "$log_file"  # Limpar arquivo
+    true > "$log_file"  # Limpar arquivo
     
     local log_levels=("INFO" "WARNING" "ERROR" "DEBUG")
     local services=("api" "database" "cache" "queue" "auth")
@@ -78,7 +78,8 @@ generate_sample_logs() {
     )
     
     for ((i=1; i<=num_lines; i++)); do
-        local timestamp=$(date -d "$((RANDOM % 24)) hours ago $((RANDOM % 60)) minutes ago" '+%Y-%m-%d %H:%M:%S')
+        local timestamp
+        timestamp=$(date -d "$((RANDOM % 24)) hours ago $((RANDOM % 60)) minutes ago" '+%Y-%m-%d %H:%M:%S')
         local level=${log_levels[$((RANDOM % ${#log_levels[@]}))]}
         local service=${services[$((RANDOM % ${#services[@]}))]}
         local message=${messages[$((RANDOM % ${#messages[@]}))]}
@@ -111,10 +112,13 @@ analyze_log_levels() {
         grep -oP '\[(INFO|WARNING|ERROR|DEBUG)\]' "$log_file" | sort | uniq -c | sort -rn
         echo ""
         echo "Porcentagem por nível:"
-        local total=$(wc -l < "$log_file")
+        local total
+        total=$(wc -l < "$log_file")
         for level in INFO WARNING ERROR DEBUG; do
-            local count=$(grep -c "\[$level\]" "$log_file" || echo 0)
-            local percentage=$(awk "BEGIN {printf \"%.2f\", ($count/$total)*100}")
+            local count
+            local percentage
+            count=$(grep -c "\[$level\]" "$log_file" || echo 0)
+            percentage=$(awk "BEGIN {printf \"%.2f\", ($count/$total)*100}")
             echo "  $level: $count ($percentage%)"
         done
     } > "$output_file"
@@ -152,7 +156,8 @@ analyze_response_times() {
     log_info "Analisando tempos de resposta..."
     
     # Extrair tempos de resposta
-    local temp_file=$(mktemp)
+    local temp_file
+    temp_file=$(mktemp)
     grep -oP '\(\K[0-9]+(?=ms\))' "$log_file" > "$temp_file"
     
     if [ ! -s "$temp_file" ]; then
@@ -225,8 +230,10 @@ detect_anomalies() {
     
     log_info "Detectando anomalias..."
     
-    local error_count=$(grep -c '\[ERROR\]' "$log_file" || echo 0)
-    local warning_count=$(grep -c '\[WARNING\]' "$log_file" || echo 0)
+    local error_count
+    local warning_count
+    error_count=$(grep -c '\[ERROR\]' "$log_file" || echo 0)
+    warning_count=$(grep -c '\[WARNING\]' "$log_file" || echo 0)
     
     {
         echo "========================================="

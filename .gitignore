@@ -1,0 +1,37 @@
+# Diretórios de teste
+test_pipeline_run/
+test_*/
+
+# Logs
+logs/*.log
+*.log
+
+# Dados gerados
+data/raw/*
+data/staging/*
+data/processed/*
+data/errors/*
+!data/raw/.gitkeep
+!data/staging/.gitkeep
+!data/processed/.gitkeep
+!data/errors/.gitkeep
+
+# Análises
+analysis/*.txt
+analysis/*.csv
+
+# Arquivos temporários
+*.tmp
+*.temp
+.DS_Store
+*~
+\#*\#
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos de sistema
+Thumbs.db
