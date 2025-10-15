@@ -249,7 +249,59 @@ bash-data-ops-automation/
 
 ## 🚀 Getting Started
 
-Para começar, clone o repositório e explore os diretórios `src/` e `docs/` para exemplos detalhados e instruções de uso. Certifique-se de ter um ambiente Linux/Unix com Bash e as ferramentas CLI necessárias instaladas.
+Para começar, clone o repositório e execute a demonstração completa:
+
+### Quick Start
+
+```bash
+# Clonar o repositório
+git clone https://github.com/galafis/bash-data-ops-automation.git
+cd bash-data-ops-automation
+
+# Instalar dependências (Ubuntu/Debian)
+sudo apt-get update && sudo apt-get install -y datamash bc
+
+# Executar demonstração completa
+bash demo.sh
+```
+
+O script de demonstração executará:
+1. ✅ Pipeline completa de dados (ETL) com validação e transformações
+2. ✅ Análise avançada de logs com estatísticas e detecção de anomalias  
+3. ✅ Suite completa de testes automatizados
+
+### Executar Scripts Individualmente
+
+### Executar Scripts Individualmente
+
+**Pipeline de Dados:**
+```bash
+# Criar estrutura
+mkdir -p config data/{raw,staging,processed,lookup,errors} logs
+
+# Configurar
+cat > config/pipeline_config.conf <<EOF
+SOURCE_DIR=./data/raw
+STAGING_DIR=./data/staging
+PROCESSED_DIR=./data/processed
+LOOKUP_DIR=./data/lookup
+ERROR_DIR=./data/errors
+LOG_FILE=./logs/data_pipeline.log
+NOTIFICATION_ENABLED=false
+EOF
+
+# Executar
+bash src/data_pipeline.sh
+```
+
+**Análise de Logs:**
+```bash
+# Executar (gera logs de exemplo automaticamente)
+bash src/log_analyzer.sh
+
+# Ver resultados
+cat analysis/anomalies_report.txt
+```
 
 ### Pré-requisitos
 
