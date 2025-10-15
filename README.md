@@ -6,6 +6,7 @@
 ![AWK](https://img.shields.io/badge/AWK-Processing-green?style=for-the-badge)
 ![Monitoring](https://img.shields.io/badge/Monitoring-Log%20Analysis-orange?style=for-the-badge)
 ![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid-orange?style=for-the-badge&logo=mermaid&logoColor=white)
+![Tests](https://github.com/galafis/bash-data-ops-automation/workflows/Tests/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
 ---
@@ -18,7 +19,7 @@ Este repositório é dedicado a demonstrar **soluções práticas e eficientes p
 
 O principal objetivo deste projeto é **fornecer um conjunto de scripts Bash bem documentados e exemplos de casos de uso** para automatizar operações comuns em DataOps. Serão abordados tópicos como agendamento de tarefas (cron), manipulação de arquivos e diretórios, interação com bancos de dados (via CLI), monitoramento de processos e tratamento de erros, tudo com foco em **escalabilidade, confiabilidade e facilidade de manutenção**, com ênfase em **validação de dados robusta, transformações complexas e um sistema de notificação de status**.
 
-### ✨ Destaques
+### ✨ Highlights
 
 - **Validação de Dados Robusta**: Implementação de funções de validação que verificam a integridade e o formato dos dados em diferentes estágios da pipeline, garantindo a qualidade dos dados antes do processamento.
 - **Análise Avançada de Logs**: Módulo `log_analyzer.sh` que demonstra análise profissional de logs com detecção de anomalias, análise de padrões temporais, estatísticas de tempos de resposta e geração de relatórios automatizados.
@@ -29,7 +30,8 @@ O principal objetivo deste projeto é **fornecer um conjunto de scripts Bash bem
 - **Monitoramento e Alerta**: Scripts para monitorar a saúde dos sistemas de dados, o status das tarefas e enviar alertas em caso de falhas.
 - **Código Profissional**: Scripts bem estruturados, com comentários claros, seguindo as melhores práticas de shell scripting para garantir legibilidade e manutenibilidade.
 - **Documentação Completa**: Cada script é acompanhado de documentação detalhada, explicando seu propósito, parâmetros, lógica e exemplos de uso.
-- **Testes Incluídos**: Exemplos de como testar scripts Bash para garantir sua correção e robustez.
+- **Testes Incluídos**: Suite completa de testes automatizados com CI/CD via GitHub Actions para garantir qualidade e confiabilidade.
+- **Análise Estática**: Uso de shellcheck para garantir boas práticas e código livre de erros comuns.
 
 ### 🚀 Benefícios do DataOps com Bash em Ação
 
@@ -96,14 +98,24 @@ The main objective of this project is to **provide a set of well-documented Bash
 
 ```
 bash-data-ops-automation/
-├── src/           # Scripts Bash para automação de tarefas DataOps
-├── data/          # Dados de exemplo (CSV) para simular ingestão e processamento
-├── images/        # Imagens e diagramas para o README e documentação
-├── tests/         # Scripts de teste para validação dos scripts Bash
-├── docs/          # Documentação adicional, tutoriais e guias de boas práticas
-├── config/        # Arquivos de configuração para as pipelines
-├── logs/          # Diretório para armazenar logs de execução da pipeline
-└── README.md      # Este arquivo
+├── .github/
+│   └── workflows/       # GitHub Actions CI/CD workflows
+│       └── tests.yml    # Automated testing workflow
+├── src/                 # Scripts Bash para automação de tarefas DataOps
+│   ├── data_pipeline.sh # Pipeline completa de dados com ETL
+│   └── log_analyzer.sh  # Analisador avançado de logs
+├── tests/               # Scripts de teste para validação dos scripts Bash
+│   ├── run_all_tests.sh        # Runner principal de todos os testes
+│   ├── test_data_pipeline.sh   # Testes do data_pipeline.sh
+│   └── test_log_analyzer.sh    # Testes do log_analyzer.sh
+├── diagrams/            # Diagramas de arquitetura e fluxo de dados
+│   └── bash_data_ops_flow.png  # Diagrama do fluxo DataOps
+├── images/              # Imagens e screenshots para documentação
+├── analysis/            # Diretório de saída para análises de logs
+├── logs/                # Diretório para armazenar logs de execução da pipeline
+├── .gitignore           # Arquivos e diretórios ignorados pelo git
+├── LICENSE              # Licença MIT do projeto
+└── README.md            # Este arquivo
 ```
 
 ---
@@ -297,6 +309,134 @@ run_pipeline() {
 
 # Executar a pipeline
 run_pipeline
+```
+
+---
+
+## 🧪 Testes / Testing
+
+Este projeto inclui uma suíte de testes abrangente para garantir a qualidade e confiabilidade dos scripts.
+
+### Executando os Testes
+
+```bash
+# Executar todos os testes
+cd tests
+bash run_all_tests.sh
+
+# Executar teste específico do pipeline de dados
+bash tests/test_data_pipeline.sh
+
+# Executar teste específico do analisador de logs
+bash tests/test_log_analyzer.sh
+```
+
+### Estrutura dos Testes
+
+- **test_data_pipeline.sh**: Testa todas as funcionalidades do pipeline de dados
+  - Extração de dados simulada
+  - Validação robusta com detecção de erros
+  - Transformações e agregações complexas
+  - Carregamento de dados processados
+  - Verificação de arquivos de saída
+
+- **test_log_analyzer.sh**: Testa o analisador de logs
+  - Geração de logs de exemplo
+  - Análise de níveis de log
+  - Análise de serviços
+  - Estatísticas de tempos de resposta
+  - Detecção de padrões temporais
+  - Relatórios de anomalias
+
+### CI/CD com GitHub Actions
+
+O projeto utiliza GitHub Actions para executar os testes automaticamente em cada push ou pull request:
+
+```yaml
+# .github/workflows/tests.yml
+- Instalação de dependências (shellcheck, datamash, bc)
+- Execução de shellcheck para análise estática
+- Execução de todos os testes
+```
+
+### Cobertura de Testes
+
+✅ Todos os scripts principais possuem testes automatizados  
+✅ Validação de entrada e saída  
+✅ Tratamento de erros  
+✅ Casos de sucesso e falha  
+✅ Integração contínua configurada  
+
+---
+
+## 📊 Exemplos de Uso / Usage Examples
+
+### Pipeline de Dados
+
+Execute o pipeline completo de dados:
+
+```bash
+cd bash-data-ops-automation
+mkdir -p config data/{raw,staging,processed,lookup,errors} logs
+
+# Criar arquivo de configuração
+cat > config/pipeline_config.conf <<EOF
+SOURCE_DIR=./data/raw
+STAGING_DIR=./data/staging
+PROCESSED_DIR=./data/processed
+LOOKUP_DIR=./data/lookup
+ERROR_DIR=./data/errors
+LOG_FILE=./logs/data_pipeline.log
+NOTIFICATION_ENABLED=false
+EOF
+
+# Executar pipeline
+bash src/data_pipeline.sh
+```
+
+### Análise de Logs
+
+Execute a análise avançada de logs:
+
+```bash
+cd bash-data-ops-automation
+
+# Executar análise (gera logs de exemplo automaticamente)
+bash src/log_analyzer.sh
+
+# Verificar resultados
+ls -la analysis/
+cat analysis/log_levels_summary.txt
+cat analysis/anomalies_report.txt
+```
+
+### Saída Esperada
+
+**Pipeline de Dados:**
+```
+[2025-10-15 23:00:00] [INFO] =========================================
+[2025-10-15 23:00:00] [INFO] Iniciando pipeline de dados principal...
+[2025-10-15 23:00:00] [INFO] =========================================
+[2025-10-15 23:00:00] [INFO] Iniciando etapa de Extração...
+[2025-10-15 23:00:00] [INFO] Extração concluída...
+[2025-10-15 23:00:00] [INFO] Iniciando etapa de Validação de Dados...
+[2025-10-15 23:00:00] [INFO] Validação concluída...
+[2025-10-15 23:00:00] [INFO] Iniciando etapa de Transformação...
+[2025-10-15 23:00:00] [INFO] Transformação concluída...
+[2025-10-15 23:00:00] [INFO] Iniciando etapa de Carregamento...
+[2025-10-15 23:00:00] [INFO] Pipeline de dados concluída com sucesso!
+```
+
+**Análise de Logs:**
+```
+=========================================
+Log Analyzer - Advanced Log Analysis
+=========================================
+[INFO] Gerando 1000 linhas de logs de exemplo...
+[SUCCESS] Logs de exemplo gerados...
+[INFO] Analisando níveis de log...
+[SUCCESS] Análise de níveis salva...
+[SUCCESS] Análise completa! Todos os relatórios foram salvos em ./analysis/
 ```
 
 ---
