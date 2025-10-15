@@ -74,7 +74,7 @@ else
 fi
 
 # 3. Verificar a criação de arquivos de dados válidos
-VALID_DATA_FILE=$(find data/staging -name "valid_data_raw_sales_*.csv" | head -n 1)
+VALID_DATA_FILE=$(find data/staging -name "valid_data_raw_sales_*.csv" -type f -printf '%T@ %p\n' | sort -rn | head -n 1 | cut -d' ' -f2-)
 if [ -f "$VALID_DATA_FILE" ]; then
     log_test_message "SUCCESS" "Teste de arquivo de dados válidos: SUCESSO ($VALID_DATA_FILE encontrado)"
     # Verificar conteúdo do arquivo válido (ex: número de linhas)
@@ -94,7 +94,7 @@ else
 fi
 
 # 4. Verificar a criação de arquivos de dados inválidos
-INVALID_DATA_FILE=$(find data/errors -name "invalid_data_raw_sales_*.csv" | head -n 1)
+INVALID_DATA_FILE=$(find data/errors -name "invalid_data_raw_sales_*.csv" -type f -printf '%T@ %p\n' | sort -rn | head -n 1 | cut -d' ' -f2-)
 if [ -f "$INVALID_DATA_FILE" ]; then
     log_test_message "SUCCESS" "Teste de arquivo de dados inválidos: SUCESSO ($INVALID_DATA_FILE encontrado)"
     # Verificar conteúdo do arquivo inválido (ex: número de linhas)
@@ -122,7 +122,7 @@ else
 fi
 
 # 5. Verificar a criação do arquivo transformado
-TRANSFORMED_FILE=$(find data/staging -name "transformed_valid_data_raw_sales_*.csv" | head -n 1)
+TRANSFORMED_FILE=$(find data/staging -name "transformed_valid_data_raw_sales_*.csv" -type f -printf '%T@ %p\n' | sort -rn | head -n 1 | cut -d' ' -f2-)
 if [ -f "$TRANSFORMED_FILE" ]; then
     log_test_message "SUCCESS" "Teste de arquivo transformado: SUCESSO ($TRANSFORMED_FILE encontrado)"
     # Verificar se o arquivo transformado contém as colunas esperadas (ex: category, total_amount)
@@ -140,7 +140,7 @@ else
 fi
 
 # 6. Verificar a criação do arquivo final processado
-FINAL_PROCESSED_FILE=$(find data/processed -name "final_aggregated_transformed_valid_data_raw_sales_*.csv" | head -n 1)
+FINAL_PROCESSED_FILE=$(find data/processed -name "final_aggregated_transformed_valid_data_raw_sales_*.csv" -type f -printf '%T@ %p\n' | sort -rn | head -n 1 | cut -d' ' -f2-)
 if [ -f "$FINAL_PROCESSED_FILE" ]; then
     log_test_message "SUCCESS" "Teste de arquivo final processado: SUCESSO ($FINAL_PROCESSED_FILE encontrado)"
 else

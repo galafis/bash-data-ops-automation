@@ -3,15 +3,14 @@ Análise de Tempos de Resposta
 =========================================
 
 Estatísticas (em ms):
-  Média: 2510.22
-  Mediana: 0.00
-  Mínimo: 0.00
-  Máximo: 0.00
-  Desvio Padrão: 0.00
+  Média: 2363.38
+  Mínimo: 2.00
+  Máximo: 4995.00
+  Desvio Padrão: 1447.04
 
 Distribuição de tempos de resposta:
-  < 100ms: 18
-  100-500ms: 71
-  500-1000ms: 115
-  1000-2000ms: 188
-  > 2000ms: 608
+  < 100ms: 17
+  100-500ms: 90
+  500-1000ms: 128
+  1000-2000ms: 210
+  > 2000ms: 555
