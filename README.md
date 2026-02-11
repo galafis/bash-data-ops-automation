@@ -6,7 +6,6 @@
 ![AWK](https://img.shields.io/badge/AWK-Processing-green?style=for-the-badge)
 ![Monitoring](https://img.shields.io/badge/Monitoring-Log%20Analysis-orange?style=for-the-badge)
 ![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid-orange?style=for-the-badge&logo=mermaid&logoColor=white)
-![Tests](https://github.com/galafis/bash-data-ops-automation/workflows/Tests/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
 ---
@@ -30,7 +29,7 @@ O principal objetivo deste projeto é **fornecer um conjunto de scripts Bash bem
 - **Monitoramento e Alerta**: Scripts para monitorar a saúde dos sistemas de dados, o status das tarefas e enviar alertas em caso de falhas.
 - **Código Profissional**: Scripts bem estruturados, com comentários claros, seguindo as melhores práticas de shell scripting para garantir legibilidade e manutenibilidade.
 - **Documentação Completa**: Cada script é acompanhado de documentação detalhada, explicando seu propósito, parâmetros, lógica e exemplos de uso.
-- **Testes Incluídos**: Suite completa de testes automatizados com CI/CD via GitHub Actions para garantir qualidade e confiabilidade.
+- **Testes Incluídos**: Suite completa de testes automatizados para garantir qualidade e confiabilidade.
 - **Análise Estática**: Uso de shellcheck para garantir boas práticas e código livre de erros comuns.
 
 ### 🚀 Benefícios do DataOps com Bash em Ação
@@ -225,9 +224,6 @@ export ALERT_THRESHOLD_WARNING=50          # Threshold de warnings
 
 ```
 bash-data-ops-automation/
-├── .github/
-│   └── workflows/       # GitHub Actions CI/CD workflows
-│       └── tests.yml    # Automated testing workflow
 ├── src/                 # Scripts Bash para automação de tarefas DataOps
 │   ├── data_pipeline.sh # Pipeline completa de dados com ETL
 │   └── log_analyzer.sh  # Analisador avançado de logs
@@ -527,16 +523,6 @@ bash tests/test_log_analyzer.sh
   - Detecção de padrões temporais
   - Relatórios de anomalias
 
-### CI/CD com GitHub Actions
-
-O projeto utiliza GitHub Actions para executar os testes automaticamente em cada push ou pull request:
-
-```yaml
-# .github/workflows/tests.yml
-- Instalação de dependências (shellcheck, datamash, bc)
-- Execução de shellcheck para análise estática
-- Execução de todos os testes
-```
 
 ### Cobertura de Testes
 
@@ -544,7 +530,7 @@ O projeto utiliza GitHub Actions para executar os testes automaticamente em cada
 ✅ Validação de entrada e saída  
 ✅ Tratamento de erros  
 ✅ Casos de sucesso e falha  
-✅ Integração contínua configurada  
+✅ Integração de testes automatizados  
 
 ---
 

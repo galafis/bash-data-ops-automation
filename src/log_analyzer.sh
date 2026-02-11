@@ -109,7 +109,7 @@ analyze_log_levels() {
         echo "Total de linhas: $(wc -l < "$log_file")"
         echo ""
         echo "Distribuição por nível:"
-        grep -oP '\[(INFO|WARNING|ERROR|DEBUG)\]' "$log_file" | sort | uniq -c | sort -rn
+        awk 'match($0, /\[(INFO|WARNING|ERROR|DEBUG)\]/) { print substr($0, RSTART, RLENGTH) }' "$log_file" | sort | uniq -c | sort -rn
         echo ""
         echo "Porcentagem por nível:"
         local total
@@ -139,10 +139,10 @@ analyze_services() {
         echo "========================================="
         echo ""
         echo "Top 10 serviços com mais logs:"
-        grep -oP '\]\s+\[\K[^\]]+' "$log_file" | sort | uniq -c | sort -rn | head -10
+        awk -F'[][]' '{print $4}' "$log_file" | sort | uniq -c | sort -rn | head -10
         echo ""
         echo "Erros por serviço:"
-        grep '\[ERROR\]' "$log_file" | grep -oP '\]\s+\[\K[^\]]+' | sort | uniq -c | sort -rn
+        grep '\[ERROR\]' "$log_file" | awk -F'[][]' '{print $4}' | sort | uniq -c | sort -rn
     } > "$output_file"
     
     log_success "Análise de serviços salva em $output_file"
@@ -158,7 +158,7 @@ analyze_response_times() {
     # Extrair tempos de resposta
     local temp_file
     temp_file=$(mktemp)
-    grep -oP '\(\K[0-9]+(?=ms\))' "$log_file" > "$temp_file"
+    awk 'match($0, /\(([0-9]+)ms\)/, m) { print m[1] }' "$log_file" > "$temp_file"
     
     if [ ! -s "$temp_file" ]; then
         log_warning "Nenhum tempo de resposta encontrado"
@@ -214,10 +214,10 @@ analyze_time_patterns() {
         echo "========================================="
         echo ""
         echo "Logs por hora:"
-        grep -oP '^\d{4}-\d{2}-\d{2} \K\d{2}' "$log_file" | sort | uniq -c | sort -k2 -n
+        awk '{print substr($2, 1, 2)}' "$log_file" | sort | uniq -c | sort -k2 -n
         echo ""
         echo "Top 5 horas com mais erros:"
-        grep '\[ERROR\]' "$log_file" | grep -oP '^\d{4}-\d{2}-\d{2} \K\d{2}' | sort | uniq -c | sort -rn | head -5
+        grep '\[ERROR\]' "$log_file" | awk '{print substr($2, 1, 2)}' | sort | uniq -c | sort -rn | head -5
     } > "$output_file"
     
     log_success "Análise de padrões temporais salva em $output_file"
@@ -263,7 +263,7 @@ detect_anomalies() {
         
         echo ""
         echo "Top 5 mensagens de erro mais frequentes:"
-        grep '\[ERROR\]' "$log_file" | grep -oP '\]\s+\[[^\]]+\]\s+\K[^(]+' | sort | uniq -c | sort -rn | head -5
+        grep '\[ERROR\]' "$log_file" | awk -F'] ' '{msg=$3; sub(/ \([0-9]+ms\).*/, "", msg); print msg}' | sort | uniq -c | sort -rn | head -5
     } > "$output_file"
     
     log_success "Relatório de anomalias salvo em $output_file"
