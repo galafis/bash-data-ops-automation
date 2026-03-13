@@ -4,6 +4,7 @@
 
 [![Bash](https://img.shields.io/badge/Bash-5.2-4EAA25.svg)](https://img.shields.io/badge/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker)](Dockerfile)
 
 [English](#english) | [Português](#português)
 
